@@ -18,11 +18,16 @@ const {connectionDB} = require("./Config/Database")
 
 
 // MODELS - IMPORTED
-const {  createRoles , getRoles  } = require("./Controllers/RolesController")
+const {  createRoles , getRoles , deleteRole ,updateRole} = require("./Controllers/RolesController")
 
 
 // -- USER ROLE API [ GET , POST  ]
 app.route("/role").get(getRoles).post(createRoles)
+
+// -- USER ROLE API [ DELETE , UPDATE  ]
+app.route("/role/:id").delete(deleteRole).put(updateRole)
+
+
 
 
 
