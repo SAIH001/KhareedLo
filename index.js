@@ -3,23 +3,32 @@ const express = require("express");
 const app = express();
 
 
-// -- env
+// -- ENV
 
 require("dotenv").config();
 
 
-// - db
+// MIDDLEWARES
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
+
+// - DB
 const {connectionDB} = require("./Config/Database")
 
-// -- model 
 
-const {userRoles} = require("./Models/Roles")
-const {userAccounts} = require("./Models/UserAccount")
-
+// MODELS - IMPORTED
+const {  createRoles , getRoles  } = require("./Controllers/RolesController")
 
 
+// -- USER ROLE API [ GET , POST  ]
+app.route("/role").get(getRoles).post(createRoles)
 
-// -- server listen
+
+
+
+
+// -- SERVER LISTEN
 app.listen(process.env.PORT,function(){
     console.log(`The Server is running on the port ${process.env.PORT}`)
     connectionDB()
